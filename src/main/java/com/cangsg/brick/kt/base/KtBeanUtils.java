@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-public abstract class BeanUtils {
+public abstract class KtBeanUtils {
     static final ConcurrentMap<Class<?>, Constructor<?>> strongClassConstructorCache = new ConcurrentHashMap<>();
 
     static final ConcurrentMap<Class<?>, Map<String, PropertyDescriptor>> strongClassCache = new ConcurrentHashMap<>();
@@ -40,7 +40,7 @@ public abstract class BeanUtils {
 
         // 1. 从缓存获取该类的属性描述符映射，若不存在则初始化并缓存
         Map<String, PropertyDescriptor> propertyMap = strongClassCache.computeIfAbsent(clazz,
-                BeanUtils::resolveAllPropertyDescriptors);
+                KtBeanUtils::resolveAllPropertyDescriptors);
 
         // 2. 返回指定属性的描述符（不存在则返回 null）
         return propertyMap.get(propertyName);
@@ -53,7 +53,7 @@ public abstract class BeanUtils {
 
         // 从缓存获取该类的属性映射，不存在则初始化
         Map<String, PropertyDescriptor> propertyMap = strongClassCache.computeIfAbsent(clazz,
-                BeanUtils::resolveAllPropertyDescriptors);
+                KtBeanUtils::resolveAllPropertyDescriptors);
         // 转换为数组返回（保持解析时的顺序，与 Introspector 解析结果一致）
         return propertyMap.values().toArray(new PropertyDescriptor[0]);
     }
@@ -70,7 +70,7 @@ public abstract class BeanUtils {
     }
 
     public static Object instantiateClass(Class<?> clazz) {
-        Constructor<?> construchtor = strongClassConstructorCache.computeIfAbsent(clazz, BeanUtils::resolveConstructor);
+        Constructor<?> construchtor = strongClassConstructorCache.computeIfAbsent(clazz, KtBeanUtils::resolveConstructor);
         try {
             if (construchtor == null) {
                 throw new RuntimeException(String.format("类 [%s] 无无参构造器", clazz.getName()));
