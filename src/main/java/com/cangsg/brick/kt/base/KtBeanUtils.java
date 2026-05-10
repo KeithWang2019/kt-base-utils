@@ -34,7 +34,7 @@ public abstract class KtBeanUtils {
     }
 
     public static PropertyDescriptor getPropertyDescriptor(Class<?> clazz, String propertyName) {
-        if (clazz == null || propertyName == null || propertyName.isBlank()) {
+        if (clazz == null || propertyName == null) {
             throw new IllegalArgumentException("Class 和属性名不能为空");
         }
 
