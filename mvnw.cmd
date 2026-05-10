@@ -27,8 +27,6 @@
 @REM   MVNW_VERBOSE - true: enable verbose log; others: silence the output
 @REM ----------------------------------------------------------------------------
 
-set JAVA_HOME=D:\\opt\\jdk-21
-
 @IF "%__MVNW_ARG0_NAME__%"=="" (SET __MVNW_ARG0_NAME__=%~nx0)
 @SET __MVNW_CMD__=
 @SET __MVNW_ERROR__=
